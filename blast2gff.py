@@ -103,7 +103,7 @@ def main(argv, wayout):
 	print >> sys.stderr, "Starting BLAST parsing on %s" % (args.blast), time.asctime()
 	for line in open(args.blast, 'r'):
 		linecounter += 1
-		qseqid, sseqid, pident, length, mismatch, gapopen, qstart, qend, sstart, send, evalue, bitscore = line.rstrip().split("\t")
+		qseqid, sseqid, pident, length, mismatch, gapopen, qstart, qend, sstart, send, evalue, bitscore, stitle = line.rstrip().split("\t")
 
 		# remove stray characters
 		if args.swissprot:
@@ -116,9 +116,9 @@ def main(argv, wayout):
 		# ID only appears to not work for visualization, as the gene should be the blast query
 		#attributes = "ID={}".format(qseqid)
 		if args.augustus:
-			attributes = "source=P;ID={0}.{1}-{2}".format(qseqid, qstart, qend)
+			attributes = "source=P;ID={0}.{1}-{2}".format(sseqid, sstart, send)
 		else:
-			attributes = "ID={0}.{1}{2};Target={0} {3} {4}".format(qseqid, args.type, hitDictCounter[qseqid], qstart, qend)
+			attributes = "Additional_database={1};{1}_ID={0};{1}_Target={5}".format(sseqid, args.program, hitDictCounter[qseqid], sstart, send, stitle)
 		# if verbose, display the current attributes format for debugging
 		if args.verbose and linecounter == 1:
 			print >> sys.stderr, attributes
@@ -129,11 +129,11 @@ def main(argv, wayout):
 		# as start must always be less or equal to end, reverse them for opposite strand hits
 		if isstart <= isend:
 			strand = "+"
-			outlist = [sseqid, args.program, args.type, sstart, send, bitscore, strand, ".", attributes]
+			outlist = [qseqid, args.program, args.type, qstart, qend, bitscore, strand, ".", attributes]
 			plusstrand += 1
 		else:
 			strand = "-"
-			outlist = [sseqid, args.program, args.type, send, sstart, bitscore, strand, ".", attributes]
+			outlist = [qseqid, args.program, args.type, qend, qstart, bitscore, strand, ".", attributes]
 			minusstrand += 1
 
 		# if filtering, check if bits/length is above threshold

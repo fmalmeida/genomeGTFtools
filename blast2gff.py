@@ -103,7 +103,7 @@ def main(argv, wayout):
 	print >> sys.stderr, "Starting BLAST parsing on %s" % (args.blast), time.asctime()
 	for line in open(args.blast, 'r'):
 		linecounter += 1
-		qseqid, sseqid, pident, length, mismatch, gapopen, qstart, qend, sstart, send, evalue, bitscore, stitle = line.rstrip().split("\t")
+		qseqid, sseqid, pident, length, mismatch, gapopen, qstart, qend, sstart, send, slen, evalue, bitscore, stitle = line.rstrip().split("\t")
 
 		# remove stray characters
 		if args.swissprot:

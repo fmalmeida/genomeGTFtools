@@ -138,7 +138,7 @@ def main(argv, wayout):
 
 		# if filtering, check if bits/length is above threshold
 		if args.filter:
-			fl = abs(isend-isstart)
+			fl = abs(iqend-iqstart)
 			nbs = float(bitscore)/fl
 			if nbs < args.score_cutoff:
 				badhits += 1

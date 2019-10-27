@@ -110,7 +110,7 @@ def main(argv, wayout):
 		# blast outputs swissprot proteins as: sp|P0DI82|TPC2B_HUMAN
 			qseqid = qseqid.split("|")[2]
 		else:
-			qseqid = qseqid.replace("|","")
+			qseqid = qseqid.replace("|","|")
 		hitDictCounter[qseqid] += 1
 		# currently 'attributes' is only query id
 		# ID only appears to not work for visualization, as the gene should be the blast query

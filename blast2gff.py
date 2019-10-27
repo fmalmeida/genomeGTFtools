@@ -124,10 +124,10 @@ def main(argv, wayout):
 			print >> sys.stderr, attributes
 
 		# convert strings of start and end to integers for calculations
-		isend = int(send)
-		isstart = int(sstart)
+		iqend = int(qend)
+		iqstart = int(qstart)
 		# as start must always be less or equal to end, reverse them for opposite strand hits
-		if isstart <= isend:
+		if iqstart <= iqend:
 			strand = "+"
 			outlist = [qseqid, args.program, args.type, qstart, qend, bitscore, strand, ".", attributes]
 			plusstrand += 1
